@@ -1,0 +1,25 @@
+import pandas as pd
+df = pd.read_csv("movies_updated.csv")
+df["released"] = df["released"].str.extract(r"^(.{7}).*")[0]
+df["Date"] = pd.to_datetime(df["released"], format="%B %d, %Y")
+df.set_index("Date", inplace=True)
+df.sort_index(inplace=True)
+cols = ["score", "votes", "budget", "gross", "runtime"]
+yearly_data = df[cols].resample("YE").mean().round(2)
+print("Yearly Summary")
+print(yearly_data.head(10))
+
+
+
+
+
+Yearly Summary
+
+            score     votes      budget        gross  runtime
+Date
+1980-12-31   8.4  927000.0  19000000.0   46998772.0    146.0
+1981-12-31   6.8  101000.0  54000000.0  108185706.0    127.0
+1982-12-31   6.7     230.0         0.0          NaN     89.0
+1983-12-31   6.9    1000.0   3000000.0          NaN    108.0
+1984-12-31   7.3   54000.0   5000000.0   30031783.0    109.0
+1985-12-31   4.6    2300.0         0.0          NaN     89.0
