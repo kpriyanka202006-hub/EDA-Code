@@ -1,0 +1,29 @@
+import pandas as pd
+df = pd.read_csv("movies_updated.csv")
+df["released"] = df["released"].str.extract(r"^(.{7}).*")[0]
+df["Date"] = pd.to_datetime(df["released"], format="%B %d, %Y")
+df.set_index("Date", inplace=True)
+df.sort_index(inplace=True)
+cols = ["score", "votes", "budget", "gross", "runtime"]
+yearly_data = df[cols].resample("YE").mean().round(2)
+monthly_data = yearly_data.resample("MS").ffill()
+print("Up-Sampled Monthly Data")
+print(monthly_data.head(15))
+
+
+
+
+
+
+Up-Sampled Monthly Data
+
+            score     votes      budget        gross  runtime
+Date
+1981-01-01   8.4  927000.0  19000000.0   46998772.0  146.0
+1981-02-01   8.4  927000.0  19000000.0   46998772.0  146.0
+1981-03-01   8.4  927000.0  19000000.0   46998772.0  146.0
+1981-04-01   8.4  927000.0  19000000.0   46998772.0  146.0
+1981-05-01   8.4  927000.0  19000000.0   46998772.0  146.0
+1981-06-01   8.4  927000.0  19000000.0   46998772.0  146.0
+1981-07-01   8.4  927000.0  19000000.0   46998772.0  146.0
+...
