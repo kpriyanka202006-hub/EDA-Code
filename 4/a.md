@@ -19,4 +19,4 @@ print(df.columns)
 
 
 output
-
+<img width="661" height="165" alt="image" src="https://github.com/user-attachments/assets/d8995b06-22df-4a04-b1ee-23eb19e7727f" />
